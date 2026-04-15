@@ -1,0 +1,301 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*
+ * フォレストフォグ（サンプル構造）
+ * page #dfe3df … ウィンドウ周辺・キャンセル
+ * card #ffffff … メイン本文（ラベル・余白は白）
+ * input #e0e4e0 … 入力欄の塗りだけ
+ * accent #a8c090 … 保存・トグル ON
+ */
+:root {
+  --fg-page: #dfe3df;
+  --fg-card: #ffffff;
+  --fg-text: #2a2e2b;
+  --fg-muted: #5f6561;
+  --fg-placeholder: #8a928c;
+  --fg-input: #e0e4e0;
+  --fg-border: transparent;
+  --fg-border-strong: #cdd2cd;
+  --fg-accent: #a8c090;
+  --fg-accent-hover: #96ae7e;
+  --fg-accent-active: #8a9f74;
+  --fg-accent-text: #f7faf4;
+  --fg-page-btn-hover: #d0d6d0;
+  --fg-toggle-off: #b5bab6;
+  --fg-toggle-on: #a8c090;
+  --fg-disabled: #a8b0a3;
+  --fg-focus: rgba(168, 192, 144, 0.45);
+  --fg-shadow-input: none;
+  --fg-shadow-btn: 0 1px 2px rgba(42, 46, 43, 0.06);
+  --fg-radius-field: 8px;
+  --fg-radius-card: 10px;
+}
+
+html {
+  height: auto;
+  min-height: 0;
+  background: var(--fg-page);
+}
+
+body {
+  margin: 0;
+  min-height: 0;
+  height: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: 13px;
+  color: var(--fg-text);
+  background: var(--fg-page);
+  padding: 10px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  min-width: 440px;
+  box-sizing: border-box;
+  background: var(--fg-card);
+  border-radius: var(--fg-radius-card);
+  padding: 14px 16px 12px;
+  box-shadow: 0 1px 3px rgba(42, 46, 43, 0.06);
+}
+
+.header {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--fg-border-strong);
+}
+
+.header h1 {
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--fg-text);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.form-group label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.form-row {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--fg-text);
+  background: var(--fg-input);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--fg-radius-field);
+  outline: none;
+  box-shadow: var(--fg-shadow-input);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--fg-placeholder);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  background: var(--fg-input);
+  border-color: var(--fg-accent);
+  box-shadow: 0 0 0 2px var(--fg-focus);
+}
+
+textarea {
+  resize: none;
+  min-height: 34px;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--fg-input);
+}
+
+/* 単一選択のときだけカスタム矢印を描画する */
+select:not([multiple]):not([size]) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%235f6561' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 10px;
+  padding-right: 28px;
+}
+
+select:not([multiple]):not([size]):focus {
+  background-color: var(--fg-input);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%235f6561' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+}
+
+/* Toggle - compact inline version */
+.form-toggle-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.form-toggle-compact label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+input[type="checkbox"] {
+  width: 36px;
+  height: 20px;
+  appearance: none;
+  background: var(--fg-toggle-off);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--fg-toggle-on);
+}
+
+input[type="checkbox"]:checked::after {
+  transform: translateX(16px);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 10px 0 0;
+  border: none;
+  border-top: 1px solid var(--fg-border-strong);
+}
+
+.btn {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--fg-radius-field);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--fg-accent);
+  color: var(--fg-accent-text);
+  border: 1px solid transparent;
+  box-shadow: var(--fg-shadow-btn);
+}
+
+.btn-primary:hover {
+  background: var(--fg-accent-hover);
+}
+
+.btn-primary:active {
+  background: var(--fg-accent-active);
+  transform: translateY(0.5px);
+  box-shadow: none;
+}
+
+.btn-primary:disabled {
+  background: var(--fg-disabled);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* キャンセル: サンプルどおり page 色 #dfe3df */
+.btn-secondary {
+  background: var(--fg-page);
+  color: var(--fg-text);
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: var(--fg-page-btn-hover);
+}
+
+.error-message {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.auth-message {
+  text-align: center;
+  padding: 32px 20px 36px;
+}
+
+.auth-message p {
+  margin-bottom: 16px;
+  color: var(--fg-muted);
+  font-size: 15px;
+}
+
+.saving .btn-primary {
+  pointer-events: none;
+}

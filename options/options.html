@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSnap - 設定</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>EventSnap 設定</h1>
+    </header>
+
+    <section class="section">
+      <h2>Google アカウント</h2>
+      <div class="account-status">
+        <p id="account-info">確認中...</p>
+        <button id="login-btn" class="btn btn-primary" style="display: none;">ログイン</button>
+        <button id="logout-btn" class="btn btn-secondary" style="display: none;">ログアウト</button>
+      </div>
+      <div class="oauth-debug">
+        <p><span class="label">拡張 ID:</span> <code id="extension-id"></code></p>
+        <p><span class="label">Redirect URL:</span> <code id="redirect-url"></code></p>
+        <p><span class="label">manifest client_id:</span> <code id="manifest-client-id"></code></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>デフォルト設定</h2>
+
+      <div class="form-group">
+        <label for="default-calendar">デフォルトカレンダー</label>
+        <select id="default-calendar">
+          <option value="primary">メインカレンダー</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="default-reminder">デフォルト通知</label>
+        <select id="default-reminder">
+          <option value="default">カレンダーのデフォルト</option>
+          <option value="0">通知なし</option>
+          <option value="10">10分前</option>
+          <option value="30">30分前</option>
+          <option value="60">1時間前</option>
+          <option value="1440">1日前</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="default-duration">デフォルトイベント時間</label>
+        <select id="default-duration">
+          <option value="30">30分</option>
+          <option value="60" selected>1時間</option>
+          <option value="120">2時間</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="default-status">デフォルトステータス</label>
+        <select id="default-status">
+          <option value="opaque">予定あり</option>
+          <option value="transparent">空き</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="default-visibility">デフォルト公開設定</label>
+        <select id="default-visibility">
+          <option value="default">デフォルト</option>
+          <option value="public">公開</option>
+          <option value="private">非公開</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="form-actions">
+      <div id="save-status" class="save-status"></div>
+      <button id="save-btn" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>

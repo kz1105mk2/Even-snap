@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "EventSnap",
+  "version": "1.0.1",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2VGkQsrKjy5hpADexfbAX76/qqvLBFtHdNZQvP7OvfLyslpvmkUtt85NI/L5U1ZDUfh0uDoG3HWD/fNZPV4bzvVOm9LB2TMRyW+Y55uuEoLPyI4DUZYOC1PZS0M6VdGxIjiM09vqJWp3OQNkIU5KZEWGqfdZC2ipimbl6qQY10Xtbvg/G3GllxMfqgJsXP0C+ra3RbaFzZTJySctYpOyB69wvsl6jq4y+IFHcLTaqmw6kdwNl24l0UuCQyfAaAdYaZjtpagTCobcK55IRBBu1ZYzBl78CcTxIK/Es1EIsnp+1Ij6g4Ry3jA7hF1fGKfr7cETfH1olnJB/+Tnr+quZQIDAQAB",
+  "description": "Webページ上のイベント日時を選択し、右クリックからGoogle Calendarに予定を登録",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "identity",
+    "storage",
+    "windows"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "options_page": "options/options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "oauth2": {
+    "client_id": "719794860523-38cgh32jpksguk96p1gpqdlactq0rvi6.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ]
+  }
+}

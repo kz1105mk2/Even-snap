@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nordic palette mocks — EventSnap</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: 13px;
+      color: #1d1d1f;
+      background: #e5e5ea;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+    .page-desc {
+      font-size: 12px;
+      color: #636366;
+      margin-bottom: 20px;
+      max-width: 720px;
+      line-height: 1.45;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+    .pattern {
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+    .pattern.p1 { background: var(--page-bg); }
+    .pattern.p2 { background: var(--page-bg); }
+    .pattern.p3 { background: var(--page-bg); }
+    .pattern.p4 { background: var(--page-bg); }
+    .pattern.p5 { background: var(--page-bg); }
+    .pattern-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .swatches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+      font-size: 10px;
+      color: #636366;
+    }
+    .swatch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #f2f2f7;
+    }
+    .swatch i {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      flex-shrink: 0;
+    }
+
+    /* —— Mini modal shell (shared structure) —— */
+    .mini-modal {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+    .mini-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 10px;
+      position: relative;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .traffic {
+      position: absolute;
+      left: 10px;
+      display: flex;
+      gap: 5px;
+    }
+    .traffic span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      opacity: 0.35;
+    }
+    .mini-body {
+      padding: 10px 12px 12px;
+    }
+    .mini-body .row {
+      margin-bottom: 6px;
+    }
+    .mini-body label {
+      display: block;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .fake-input {
+      width: 100%;
+      padding: 5px 8px;
+      font-size: 11px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+    }
+    .row2 {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    .row2 .grow { flex: 1; }
+    .toggle-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .toggle-wrap label { font-size: 9px; }
+    .fake-toggle {
+      width: 36px;
+      height: 20px;
+      border-radius: 10px;
+      position: relative;
+    }
+    .fake-toggle::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    }
+    .fake-toggle.on::after {
+      transform: translateX(16px);
+    }
+    .grid4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .btn {
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: default;
+      font-family: inherit;
+    }
+
+    /* Pattern 1 — Lime Mist */
+    .p1 {
+      --page-bg: #f4f5f1;
+      --panel: #ffffff;
+      --title-bar: #ebece8;
+      --text: #2a2b28;
+      --muted: #7c7f76;
+      --input-bg: #eceee8;
+      --border: #e2e4dc;
+      --accent: #9fb85c;
+      --accent-text: #f8faf3;
+      --secondary-bg: #e8eae3;
+      --toggle-off: #c9cbc1;
+      --toggle-on: var(--accent);
+    }
+    .p1 .mini-modal { background: var(--panel); color: var(--text); }
+    .p1 .mini-head { background: var(--title-bar); color: var(--text); }
+    .p1 .mini-body label { color: var(--muted); }
+    .p1 .fake-input { background: var(--input-bg); color: var(--text); }
+    .p1 .fake-toggle { background: var(--toggle-off); }
+    .p1 .fake-toggle.on { background: var(--toggle-on); }
+    .p1 .actions { border-color: var(--border); }
+    .p1 .btn-secondary { background: var(--secondary-bg); color: var(--text); }
+    .p1 .btn-primary { background: var(--accent); color: var(--accent-text); }
+
+    /* Pattern 2 — Sea Glass */
+    .p2 {
+      --page-bg: #e8f0ee;
+      --panel: #f7faf9;
+      --title-bar: #dce8e4;
+      --text: #263330;
+      --muted: #5f726d;
+      --input-bg: #dfe9e5;
+      --border: #cdd9d4;
+      --accent: #6fa89a;
+      --lime: #a3c87a;
+      --accent-text: #f5faf8;
+      --secondary-bg: #d8e5e0;
+      --toggle-off: #b5c4bf;
+      --toggle-on: var(--lime);
+    }
+    .p2 .mini-modal { background: var(--panel); color: var(--text); }
+    .p2 .mini-head { background: var(--title-bar); color: var(--text); }
+    .p2 .mini-body label { color: var(--muted); }
+    .p2 .fake-input { background: var(--input-bg); color: var(--text); }
+    .p2 .fake-toggle { background: var(--toggle-off); }
+    .p2 .fake-toggle.on { background: var(--toggle-on); }
+    .p2 .actions { border-color: var(--border); }
+    .p2 .btn-secondary { background: var(--secondary-bg); color: var(--text); }
+    .p2 .btn-primary { background: var(--accent); color: var(--accent-text); }
+
+    /* Pattern 3 — Birch & Linen */
+    .p3 {
+      --page-bg: #ebe6dc;
+      --panel: #faf7f1;
+      --title-bar: #e5dfd4;
+      --text: #2e2c27;
+      --muted: #7a756c;
+      --input-bg: #ebe4d8;
+      --border: #ddd5c8;
+      --accent: #b4c48f;
+      --accent-text: #2f331f;
+      --secondary-bg: #e2dbd0;
+      --toggle-off: #c9c2b6;
+      --toggle-on: #c4d4a0;
+    }
+    .p3 .mini-modal { background: var(--panel); color: var(--text); }
+    .p3 .mini-head { background: var(--title-bar); color: var(--text); }
+    .p3 .mini-body label { color: var(--muted); }
+    .p3 .fake-input { background: var(--input-bg); color: var(--text); }
+    .p3 .fake-toggle { background: var(--toggle-off); }
+    .p3 .fake-toggle.on { background: var(--toggle-on); }
+    .p3 .actions { border-color: var(--border); }
+    .p3 .btn-secondary { background: var(--secondary-bg); color: var(--text); }
+    .p3 .btn-primary { background: var(--accent); color: var(--accent-text); }
+
+    /* Pattern 4 — Scandinavian Dawn */
+    .p4 {
+      --page-bg: #e6e4ec;
+      --panel: #f7f6fa;
+      --title-bar: #dcd8e6;
+      --text: #2b2833;
+      --muted: #6d6778;
+      --input-bg: #e4e1eb;
+      --border: #d4cfdd;
+      --accent: #8eb89a;
+      --accent-text: #f4f8f5;
+      --secondary-bg: #ded9e5;
+      --toggle-off: #b8b3c4;
+      --toggle-on: #a3c9a8;
+    }
+    .p4 .mini-modal { background: var(--panel); color: var(--text); }
+    .p4 .mini-head { background: var(--title-bar); color: var(--text); }
+    .p4 .mini-body label { color: var(--muted); }
+    .p4 .fake-input { background: var(--input-bg); color: var(--text); }
+    .p4 .fake-toggle { background: var(--toggle-off); }
+    .p4 .fake-toggle.on { background: var(--toggle-on); }
+    .p4 .actions { border-color: var(--border); }
+    .p4 .btn-secondary { background: var(--secondary-bg); color: var(--text); }
+    .p4 .btn-primary { background: var(--accent); color: var(--accent-text); }
+
+    /* Pattern 5 — Forest Fog */
+    .p5 {
+      --page-bg: #dfe3df;
+      --panel: #f3f5f3;
+      --title-bar: #d5dad6;
+      --text: #2a2e2b;
+      --muted: #5f6561;
+      --input-bg: #e0e4e0;
+      --border: #cdd2cd;
+      --accent: #a8c090;
+      --accent-text: #f7faf4;
+      --secondary-bg: #d5dad5;
+      --toggle-off: #b5bab6;
+      --toggle-on: #b8cf9a;
+    }
+    .p5 .mini-modal { background: var(--panel); color: var(--text); }
+    .p5 .mini-head { background: var(--title-bar); color: var(--text); }
+    .p5 .mini-body label { color: var(--muted); }
+    .p5 .fake-input { background: var(--input-bg); color: var(--text); }
+    .p5 .fake-toggle { background: var(--toggle-off); }
+    .p5 .fake-toggle.on { background: var(--toggle-on); }
+    .p5 .actions { border-color: var(--border); }
+    .p5 .btn-secondary { background: var(--secondary-bg); color: var(--text); }
+    .p5 .btn-primary { background: var(--accent); color: var(--accent-text); }
+
+    .pattern.p2 .note {
+      font-size: 10px;
+      color: #5f726d;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nordic UI — 5 パターン カラーモック</h1>
+  <p class="page-desc">
+    拡張のポップアップに近いミニモーダルです。ブラウザでこの HTML を開くと、実際の背景色・アクセント・入力欄のトーンを並べて比較できます。パターン2 は「保存」をシーグリーン系のメインにし、トグル ON に淡いライムを当てた例です。
+  </p>
+
+  <div class="grid">
+    <!-- 1 -->
+    <section class="pattern p1">
+      <div class="pattern-title">1. ライムミスト</div>
+      <div class="swatches">
+        <span class="swatch"><i style="background:#f4f5f1"></i>page #f4f5f1</span>
+        <span class="swatch"><i style="background:#eceee8"></i>input #eceee8</span>
+        <span class="swatch"><i style="background:#9fb85c"></i>accent #9fb85c</span>
+      </div>
+      <div class="mini-modal">
+        <div class="mini-head">
+          <span class="traffic"><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span></span>
+          Google Calendar に追加
+        </div>
+        <div class="mini-body">
+          <div class="row">
+            <label>タイトル</label>
+            <div class="fake-input">ミーティング</div>
+          </div>
+          <div class="row2">
+            <div class="grow row">
+              <label>開始</label>
+              <div class="fake-input">2026/04/06 10:00</div>
+            </div>
+            <div class="toggle-wrap">
+              <label>終日</label>
+              <div class="fake-toggle on" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="grid4">
+            <div class="row"><label>カレンダー</label><div class="fake-input">メイン</div></div>
+            <div class="row"><label>通知</label><div class="fake-input">10分前</div></div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-secondary">キャンセル</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="pattern p2">
+      <div class="pattern-title">2. シーグラス（ライムは差し色）</div>
+      <p class="note">プライマリ #6fa89a／トグル ON #a3c87a</p>
+      <div class="swatches">
+        <span class="swatch"><i style="background:#e8f0ee"></i>page #e8f0ee</span>
+        <span class="swatch"><i style="background:#dfe9e5"></i>input #dfe9e5</span>
+        <span class="swatch"><i style="background:#6fa89a"></i>accent #6fa89a</span>
+        <span class="swatch"><i style="background:#a3c87a"></i>lime #a3c87a</span>
+      </div>
+      <div class="mini-modal">
+        <div class="mini-head">
+          <span class="traffic"><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span></span>
+          Google Calendar に追加
+        </div>
+        <div class="mini-body">
+          <div class="row">
+            <label>タイトル</label>
+            <div class="fake-input">ミーティング</div>
+          </div>
+          <div class="row2">
+            <div class="grow row">
+              <label>開始</label>
+              <div class="fake-input">2026/04/06 10:00</div>
+            </div>
+            <div class="toggle-wrap">
+              <label>終日</label>
+              <div class="fake-toggle on" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="grid4">
+            <div class="row"><label>カレンダー</label><div class="fake-input">メイン</div></div>
+            <div class="row"><label>通知</label><div class="fake-input">10分前</div></div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-secondary">キャンセル</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="pattern p3">
+      <div class="pattern-title">3. バーチ＆リネ</div>
+      <div class="swatches">
+        <span class="swatch"><i style="background:#ebe6dc"></i>page #ebe6dc</span>
+        <span class="swatch"><i style="background:#ebe4d8"></i>input #ebe4d8</span>
+        <span class="swatch"><i style="background:#b4c48f"></i>accent #b4c48f</span>
+      </div>
+      <div class="mini-modal">
+        <div class="mini-head">
+          <span class="traffic"><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span></span>
+          Google Calendar に追加
+        </div>
+        <div class="mini-body">
+          <div class="row">
+            <label>タイトル</label>
+            <div class="fake-input">ミーティング</div>
+          </div>
+          <div class="row2">
+            <div class="grow row">
+              <label>開始</label>
+              <div class="fake-input">2026/04/06 10:00</div>
+            </div>
+            <div class="toggle-wrap">
+              <label>終日</label>
+              <div class="fake-toggle on" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="grid4">
+            <div class="row"><label>カレンダー</label><div class="fake-input">メイン</div></div>
+            <div class="row"><label>通知</label><div class="fake-input">10分前</div></div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-secondary">キャンセル</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="pattern p4">
+      <div class="pattern-title">4. スカンジナビアン・ドーン</div>
+      <div class="swatches">
+        <span class="swatch"><i style="background:#e6e4ec"></i>page #e6e4ec</span>
+        <span class="swatch"><i style="background:#e4e1eb"></i>input #e4e1eb</span>
+        <span class="swatch"><i style="background:#8eb89a"></i>accent #8eb89a</span>
+      </div>
+      <div class="mini-modal">
+        <div class="mini-head">
+          <span class="traffic"><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span></span>
+          Google Calendar に追加
+        </div>
+        <div class="mini-body">
+          <div class="row">
+            <label>タイトル</label>
+            <div class="fake-input">ミーティング</div>
+          </div>
+          <div class="row2">
+            <div class="grow row">
+              <label>開始</label>
+              <div class="fake-input">2026/04/06 10:00</div>
+            </div>
+            <div class="toggle-wrap">
+              <label>終日</label>
+              <div class="fake-toggle on" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="grid4">
+            <div class="row"><label>カレンダー</label><div class="fake-input">メイン</div></div>
+            <div class="row"><label>通知</label><div class="fake-input">10分前</div></div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-secondary">キャンセル</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="pattern p5">
+      <div class="pattern-title">5. フォレストフォグ</div>
+      <div class="swatches">
+        <span class="swatch"><i style="background:#dfe3df"></i>page #dfe3df</span>
+        <span class="swatch"><i style="background:#e0e4e0"></i>input #e0e4e0</span>
+        <span class="swatch"><i style="background:#a8c090"></i>accent #a8c090</span>
+      </div>
+      <div class="mini-modal">
+        <div class="mini-head">
+          <span class="traffic"><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span><span style="background:#c4c4c4"></span></span>
+          Google Calendar に追加
+        </div>
+        <div class="mini-body">
+          <div class="row">
+            <label>タイトル</label>
+            <div class="fake-input">ミーティング</div>
+          </div>
+          <div class="row2">
+            <div class="grow row">
+              <label>開始</label>
+              <div class="fake-input">2026/04/06 10:00</div>
+            </div>
+            <div class="toggle-wrap">
+              <label>終日</label>
+              <div class="fake-toggle on" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="grid4">
+            <div class="row"><label>カレンダー</label><div class="fake-input">メイン</div></div>
+            <div class="row"><label>通知</label><div class="fake-input">10分前</div></div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-secondary">キャンセル</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <p style="margin-top:20px;font-size:11px;color:#8e8e93;">
+    ファイル: <code style="font-size:11px;">design/nordic-palette-mock.html</code> — Finder でダブルクリックするか、ローカルサーバーで開いてください。
+  </p>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventSnap</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>予定を追加</h1>
+    </header>
+
+    <div id="auth-message" class="auth-message" style="display: none;">
+      <p>Google アカウントにログインしてください</p>
+      <button id="auth-btn" class="btn btn-primary">ログイン</button>
+    </div>
+
+    <form id="event-form" class="event-form">
+      <div class="form-group">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" placeholder="予定のタイトル">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="start">開始日時</label>
+          <input type="datetime-local" id="start">
+        </div>
+        <div class="form-group flex-1">
+          <label for="end">終了日時</label>
+          <input type="datetime-local" id="end">
+        </div>
+        <div class="form-toggle-compact">
+          <label for="all-day">終日</label>
+          <input type="checkbox" id="all-day">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="location">場所</label>
+          <input type="text" id="location" placeholder="場所を入力">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">説明</label>
+        <textarea id="description" rows="1" placeholder="説明を入力"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="calendar">カレンダー</label>
+          <select id="calendar">
+            <option value="primary">メインカレンダー</option>
+          </select>
+        </div>
+        <div class="form-group flex-1">
+          <label for="reminder">通知</label>
+          <select id="reminder">
+            <option value="default">デフォルト</option>
+            <option value="0">なし</option>
+            <option value="10">10分前</option>
+            <option value="30">30分前</option>
+            <option value="60">1時間前</option>
+            <option value="1440">1日前</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="status">ステータス</label>
+          <select id="status">
+            <option value="opaque">予定あり</option>
+            <option value="transparent">空き</option>
+          </select>
+        </div>
+        <div class="form-group flex-1">
+          <label for="visibility">公開設定</label>
+          <select id="visibility">
+            <option value="default">デフォルト</option>
+            <option value="public">公開</option>
+            <option value="private">非公開</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="error-message" class="error-message" style="display: none;"></div>
+
+      <div class="form-actions">
+        <button type="button" id="cancel-btn" class="btn btn-secondary">キャンセル</button>
+        <button type="submit" id="save-btn" class="btn btn-primary">保存</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
