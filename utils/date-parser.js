@@ -21,6 +21,11 @@ const MONTH_MAP = {
 
 function normalizeText(text) {
   return text
+    // メール等でよく使われる全角数字・コロン・ハイフンを半角に（\d / : 系の正規表現と整合）
+    .replace(/[\uFF10-\uFF19]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xff10 + 0x30))
+    .replace(/\uFF1A/g, ':')
+    .replace(/\uFF0F/g, '/')
+    .replace(/\uFF0D/g, '-')
     .replace(/[\u2013\u2014\u2015\u301C\uFF5E]/g, '~')
     .replace(/\uff5e/g, '~')
     .replace(/\u3000/g, ' ')
